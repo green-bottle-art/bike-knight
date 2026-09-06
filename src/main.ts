@@ -81,5 +81,57 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-  
+  override update(): void {
+    // Memastikan input keyboard sudah siap 
+    if (!this.cursor || !this.arrowKeys) {
+      console.log('Gagal');
+      return;
+    }
+
+    // Reser kecepatan di tiap awal frame
+    let velocityX = 0;
+    let velocityY = 0;
+
+    // Masukan ke dalam variabel
+    const isUp = this.cursor.up.isDown;
+    const isLeft = this.cursor.left.isDown;
+    const isDown = this.cursor.down.isDown;
+    const isRight = this.cursor.right.isDown;
+
+    // Cek arah horizntal dan vertcal
+    if (isUp) velocityY = -1;
+    else if (isDown) velocityY = 1
+
+    if (isLeft) velocityX = -1;
+    else if (isRight) velocityX = 1;
+
+    //normalisasi vektor pergerakan
+    // mencegah pergerakan diagonal berjalan lebih cepat
+    if (velocityX !== 0 && velocityY !== 0) {
+      // Nilai 0.7071 didapat dari Math.SQRT1_2 (1 / sqrt(2))
+      velocityX *= 0.7071;
+      velocityY *= 0.7071;
+    }
+
+    // terapkan kecepatan ke sprite
+    this.player.setVelocityX (velocityX * this.SPEED);
+    this.player.setVelocityY (velocityY * this.SPEED);
+
+  }
 }
+
+const config: Phaser.Types.Core.GameConfig = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: {x: 0, y: 0},
+      debug: false,
+    },
+  },
+  scene: MainScene,
+};
+
+new Phaser.Game(config);
