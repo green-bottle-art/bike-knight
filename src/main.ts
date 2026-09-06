@@ -46,9 +46,40 @@ export class MainScene extends Phaser.Scene {
     });
 
     // Up
+    this.anims.create({
+      key: 'walk-up',
+      frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 4, end: 7}),
+      frameRate: 10,
+      repeat: -1,
+    });
 
     // Left
-    
+    this.anims.create({
+      key: 'walk-left',
+      frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 8, end: 11}),
+      frameRate: 10,
+      repeat: -1,
+    });
+
     // Right
+    this.anims.create({
+      key: 'walk-right',
+      frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 12, end: 15}),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    // Inisialisasi input control
+    if (this.input.keyboard) {
+      this.cursor = this.input.keyboard.createCursorKeys();
+      this.arrowKeys = {
+        up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+        left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+        down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+        right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+      };
+    }
   }
+
+  
 }
