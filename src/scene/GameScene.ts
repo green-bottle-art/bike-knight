@@ -1,5 +1,4 @@
-import Phaser from "phaser";
-import { Player } from "./Player";
+import { Player } from "../entities/Player";
 
 export class GameScene extends Phaser.Scene {
   // Properti untuk menyimpan referensi pemain

@@ -1,6 +1,20 @@
-import Phaser from "phaser";
-// import { GameScene } from "./GameScene";
-import { MenuScene } from "./MenuScene";
+// class FirstScene extends Phaser.Scene {
+//   if (condition) {
+//     this.scene.start('SecondScene')
+//   }
+// }
+
+
+// this.cameras.main.fadeOut(3000);
+// this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+//   this.scene.start('SecondScene')
+// })
+
+// Contoh transisi scene
+
+import { GameScene } from "./scene/GameScene";
+import { MenuScene } from "./scene/MenuScene";
+import { GameOver } from "./scene/GameOver";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -24,7 +38,8 @@ const config: Phaser.Types.Core.GameConfig = {
 
   },
 
-  scene: MenuScene,
+  scene: [MenuScene, GameScene, GameOver],
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);
+game;
