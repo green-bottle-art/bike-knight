@@ -12,6 +12,7 @@
 
 // Contoh transisi scene
 
+import Phaser from "phaser";
 import { GameScene } from "./scene/GameScene";
 import { MenuScene } from "./scene/MenuScene";
 import { GameOver } from "./scene/GameOver";
