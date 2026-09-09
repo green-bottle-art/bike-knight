@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
     private cursor!: Phaser.Types.Input.Keyboard.CursorKeys;

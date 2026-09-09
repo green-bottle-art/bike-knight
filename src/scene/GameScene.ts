@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 import { Player } from "../entities/Player";
 
 export class GameScene extends Phaser.Scene {
@@ -5,7 +6,7 @@ export class GameScene extends Phaser.Scene {
   private player!: Player;
 
   constructor() {
-    super({key: 'GameScene'});
+    super('GameScene');
   }
 
   preload(): void {

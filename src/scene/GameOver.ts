@@ -1,4 +1,9 @@
+import Phaser from "phaser";
+
 export class GameOver extends Phaser.Scene {
+    constructor() {
+        super('GameOver')
+    }
 
 
     preload(): void {
