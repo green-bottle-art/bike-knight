@@ -1,20 +1,46 @@
-cmake_minimum_required(VERSION 3.28)
-project(CMakeSFMLProject LANGUAGES CXX)
+# cmake_minimum_required(VERSION 3.10)
+# project(bike-knight LANGUAGES CXX)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(FetchContent)
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 3.1.0
-    GIT_SHALLOW ON
-    EXCLUDE_FROM_ALL
-    SYSTEM)
-FetchContent_MakeAvailable(SFML)
+# # 1. Cari SFML secara langsung (bukan lewat pkg-config)
+# find_package(SFML 3.1 REQUIRED COMPONENTS graphics window system)
 
-add_executable(main src/main.cpp)
-target_compile_features(main PRIVATE cxx_std_17)
-target_link_libraries(main PRIVATE SFML::Graphics)
+# add_executable(bike-knight src/main.cpp)
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)
+# # 2. Link target SFML modern secara langsung
+# #    Ini otomatis mengatur include directory dan flag linker sekaligus
+# target_link_libraries(bike-knight PRIVATE sfml-graphics sfml-window sfml-system)
+
+cmake_minimum_required(VERSION 3.10)
+project(bike-knight LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+
+# Ubah jalur/path di bawah ini sesuai lokasi folder 
+# Ganti dengan path absolut ke folder 'include' SFML 
+set(SFML_INCLUDE_DIR "/home/arim/apps/sfml/SFML-3.1.0/include/SFML/")
+
+# Ganti dengan path absolut ke folder tempat file .a atau .so berada
+set(SFML_LIB_DIR "/home/arim/apps/sfml/SFML-3.1.0/lib/")
+
+
+add_executable(bike-knight src/main.cpp)
+
+# letak file header (.hpp) SFML
+target_include_directories(bike-knight PRIVATE ${SFML_INCLUDE_DIR})
+
+# Cari file .a atau .so secara spesifik dari folder lib 
+find_library(SFML_GRAPHICS_LIB NAMES sfml-graphics HINTS ${SFML_LIB_DIR} REQUIRED)
+find_library(SFML_WINDOW_LIB   NAMES sfml-window   HINTS ${SFML_LIB_DIR} REQUIRED)
+find_library(SFML_SYSTEM_LIB   NAMES sfml-system   HINTS ${SFML_LIB_DIR} REQUIRED)
+
+# Tautkan pustaka biner tersebut ke aplikasi 
+target_link_libraries(bike-knight PRIVATE 
+    ${SFML_GRAPHICS_LIB} 
+    ${SFML_WINDOW_LIB} 
+    ${SFML_SYSTEM_LIB}
+)
